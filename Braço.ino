@@ -1,4 +1,4 @@
-#include <servo.h> // Include the Servo library	
+#include <Servo.h> // Include the Servo library	
 
 Servo servo_0; // Declaration of object to control the first servo
 Servo servo_1; // Declaration of object to control the second servo
@@ -24,9 +24,18 @@ void loop() {
     String input = Serial.readStringUntil('\n'); // Read the data string until newline
     int servoIndex = input.substring(0, 1).toInt(); // Get the servo index
     int servoValue = input.substring(2).toInt(); // Get the servo value
-    
+
+    if(servoValue>170 && servoIndex != 1){
+          servoValue = 170;
+        }
+    if(servoValue<10){
+      servoValue = 10;
+    }
     switch (servoIndex) {
       case 1:
+        if(servoValue>260){
+          servoValue = 260;
+        }
         servo_0.write(servoValue);
         break;
       case 2:
